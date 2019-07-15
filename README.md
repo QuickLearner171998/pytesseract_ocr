@@ -28,4 +28,4 @@ run demo.py:
 
 python demo.py --imageDir="path/to/imageDir" --preprocess="thresh" --resize=Fasle
 
-####Note: For good results try resizing the image by different factors. change resize to True for the same. 
+#### Note: For good results try resizing the image by different factors. change resize to True for the same. 
