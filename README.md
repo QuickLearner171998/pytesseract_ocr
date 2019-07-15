@@ -26,4 +26,6 @@ This will create out.txt with the detected text.
 
 run demo.py:
 
-python demo.py --imageDir="path/to/imageDir" --preprocess="thresh --resize=Fasle
+python demo.py --imageDir="path/to/imageDir" --preprocess="thresh" --resize=Fasle
+
+####Note: For good results try resizing the image by different factors. change resize to True for the same. 
