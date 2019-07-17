@@ -1,5 +1,4 @@
 # Text recognition using tesseract and pytesseract
-Text recognition using pytesseract
 
 For text detection I simply used clovaai CRAFT-pytorch repository.
 Although they also have their text recognition model but their offline model is not trained on alphanumerics.
