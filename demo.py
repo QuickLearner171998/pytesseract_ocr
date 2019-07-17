@@ -2,6 +2,7 @@ import pytesseract
 import argparse
 import cv2
 import os
+import numpy as np
 
 ap = argparse.ArgumentParser()
 ap.add_argument("-i", "--imageDir", required=True,help="path to input image dir ")
@@ -15,8 +16,9 @@ print('resize={}'.format(args["resize"]))
 fx = 1.5
 fy = 2.5
 
-print('x resized by {} and y by {}'.format(fx,fy))
-print("------------")
+if args["resize"]:
+    print('x resized by {} and y by {}'.format(fx, fy))
+    print("------------")
 
 for filename in os.listdir(args["imageDir"]):
     if filename.endswith(".png") or filename.endswith(".jpg"):
@@ -26,11 +28,27 @@ for filename in os.listdir(args["imageDir"]):
             image = cv2.resize(image, None, fx=fx, fy=fy, interpolation=cv2.INTER_AREA)
 
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        # gray = cv2.bitwise_not(gray)
 
-        if args["preprocess"] == "thresh":
-            gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
+        # if args["preprocess"] == "thresh":
+        #     gray = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY | cv2.THRESH_OTSU)[1]
 
-        text = pytesseract.image_to_string(gray)
+        # coords = np.column_stack(np.where(gray>0))
+        # angle = cv2.minAreaRect(coords)[-1]
+        #
+        # if angle < -45:
+        #     angle = -(90+angle)
+        #
+        # else:
+        #     angle = -angle
+        #
+        # (h, w) = gray.shape[:2]
+        # center = (w//2 , h//2)
+        # M = cv2.getRotationMatrix2D(center, angle, 1.0)
+        # rotated = cv2.warpAffine(gray, M, (w,h), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+        #
+
+        text = pytesseract.image_to_string(gray, config='--psm 7')
 
         print(image.shape)
         print(filename)
